@@ -1,7 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 .row {
   border: 1px solid black;
   width: 40px;
   height: 40px;
   padding: 10px;
   font-size: 22px;
+}
+.generateBtn {
+  font-size: 24px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background: inherit;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.tableBtn {
+  background: inherit;
+  border: none;
+  font-size: 24px;
 }

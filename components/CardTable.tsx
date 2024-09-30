@@ -9,6 +9,7 @@ import { useState } from "react";
 export const CardTable = () => {
   const length = 9;
   const [data, setData] = useState(() => fillData());
+  const useNumbs: number[] = [];
 
   function getRandomIndex() {
     const rndNum: number[] = [];
@@ -22,8 +23,8 @@ export const CardTable = () => {
     }
     return rndNum.sort((a, b) => a - b);
   }
-  function fillData() {
-    const useNumbs: number[] = [];
+
+  const fillData = () => {
     const arr = [
       Array(length).fill(null),
       Array(length).fill(null),
@@ -40,23 +41,30 @@ export const CardTable = () => {
       });
     });
     return arr;
-  }
+  };
   return (
-    <div>
+    <div className={cl.container}>
       <table>
         <tbody>
           {data.map((row, i) => (
             <tr key={i} className={cl.col}>
               {row.map((item, j) => (
                 <th key={j} className={cl.row}>
-                  {item}
+                  <button
+                    className={cl.tableBtn}
+                    onClick={() => console.log(123)}
+                  >
+                    {item}
+                  </button>
                 </th>
               ))}
             </tr>
           ))}
         </tbody>
       </table>
-      <button onClick={() => setData(fillData())}>Generate new card</button>
+      <button className={cl.generateBtn} onClick={() => setData(fillData())}>
+        Generate new card
+      </button>
     </div>
   );
 };
