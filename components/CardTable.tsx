@@ -6,42 +6,45 @@ import {
 import cl from "./style.module.css";
 import { useState } from "react";
 
-export const CardTable = () => {
-  const length = 9;
-  const [data, setData] = useState(() => fillData());
-  const useNumbs: number[] = [];
 
-  function getRandomIndex() {
-    const rndNum: number[] = [];
-    for (let i = 0; i < 5; i++) {
-      const rnd = generateRandomNumber(0, length - 1);
-      if (!rndNum.includes(rnd)) {
-        rndNum.push(rnd);
-      } else {
-        i--;
-      }
+const length = 9;
+const useNumbs: number[] = [];
+
+function getRandomIndex() {
+  const rndNum: number[] = [];
+  for (let i = 0; i < 5; i++) {
+    const rnd = generateRandomNumber(0, length - 1);
+    if (!rndNum.includes(rnd)) {
+      rndNum.push(rnd);
+    } else {
+      i--;
     }
-    return rndNum.sort((a, b) => a - b);
   }
+  return rndNum.sort((a, b) => a - b);
+}
 
-  const fillData = () => {
-    const arr = [
-      Array(length).fill(null),
-      Array(length).fill(null),
-      Array(length).fill(null),
-    ];
-    arr.forEach((_, i) => {
-      const indexes = getRandomIndex();
-      arr[i].map((item, j) => {
-        if (indexes.includes(j)) {
-          const rndNum = generateUniqueNumbers(useNumbs, j * 10, 9 + j * 10);
-          arr[i][j] = rndNum;
-          useNumbs.push(rndNum);
-        }
-      });
+const fillData = () => {
+  const arr = [
+    Array(length).fill(null),
+    Array(length).fill(null),
+    Array(length).fill(null),
+  ];
+  arr.forEach((_, i) => {
+    const indexes = getRandomIndex();
+    arr[i].map((item, j) => {
+      if (indexes.includes(j)) {
+        const rndNum = generateUniqueNumbers(useNumbs, j * 10, 9 + j * 10);
+        arr[i][j] = rndNum;
+        useNumbs.push(rndNum);
+      }
     });
-    return arr;
-  };
+  });
+  return arr;
+};
+
+export const CardTable = () => {
+  const [data, setData] = useState(() => fillData());
+
   return (
     <div className={cl.container}>
       <table>
