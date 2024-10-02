@@ -4,11 +4,9 @@ import {
   generateUniqueNumbers,
 } from "@/helpers/generators";
 import cl from "./style.module.css";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 
 const length = 9;
-const useNumbs: number[] = [];
 
 function getRandomIndex() {
   const rndNum: number[] = [];
@@ -24,6 +22,7 @@ function getRandomIndex() {
 }
 
 const fillData = () => {
+  const useNumbs: number[] = [];
   const arr = [
     Array(length).fill(null),
     Array(length).fill(null),
@@ -43,22 +42,23 @@ const fillData = () => {
 };
 
 export const CardTable = () => {
-  const [data, setData] = useState(() => fillData());
+  const [data, setData] = useState<number[][] | null>(null);
 
+  useEffect(() => {
+    setData(fillData());
+  }, []);
+  if (!data) {
+    return <div>Loading...</div>; // Отображаем что-то, пока данные генерируются
+  }
   return (
     <div className={cl.container}>
       <table>
         <tbody>
-          {data.map((row, i) => (
+          {data?.map((row, i) => (
             <tr key={i} className={cl.col}>
               {row.map((item, j) => (
                 <th key={j} className={cl.row}>
-                  <button
-                    className={cl.tableBtn}
-                    onClick={() => console.log(123)}
-                  >
-                    {item}
-                  </button>
+                  <button className={cl.tableBtn}>{item}</button>
                 </th>
               ))}
             </tr>
